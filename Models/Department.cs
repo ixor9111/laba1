@@ -15,18 +15,12 @@ namespace laba1.Models
 
 
         public int DepartmentID { get; set; }
-
         public string Name { get; set; }
-
         public string Description { get; set; }
-
         public int HeadID { get; set; }
-
-
         public virtual Employee Head { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
-
         public virtual ICollection<Task> Tasks { get; set; }
 
     }
