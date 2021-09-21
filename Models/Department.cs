@@ -11,7 +11,7 @@ namespace laba1.Models
         public Department()
         {
             Employees = new HashSet<Employee> ();
-            Tasks = new HashSet<Task>();
+            Works = new HashSet<Work>();
         }
 
 
@@ -23,7 +23,7 @@ namespace laba1.Models
         public virtual Employee Head { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<Work> Works { get; set; }
 
     }
 }

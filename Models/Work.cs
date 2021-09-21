@@ -2,14 +2,14 @@ using System;
 
 namespace laba1.Models
 {
-    public class Task
+    public class Work
     {
-        public Task ()
+        public Work ()
         {
 
         }
 
-        public int TaskID { get; set; }
+        public int WorkID { get; set; }
         public string ClientName { get; set; }
         public string ClientPhone { get; set; }
         public string Payment { get; set; }
