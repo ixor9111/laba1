@@ -14,7 +14,6 @@ namespace laba1.Models
         public DateTime Birth { get; set; }
         public string Role { get; set; }
         public string Salary { get; set; }
-        public int PhotoID { get; set; }
         public int DepartmentID  { get; set; }
 
         public virtual File File { get; set; }

@@ -7,13 +7,11 @@ namespace laba1.Models
 {
     public class Department
     {
-
         public Department()
         {
             Employees = new HashSet<Employee> ();
             Works = new HashSet<Work>();
         }
-
 
         public int DepartmentID { get; set; }
         public string Name { get; set; }
