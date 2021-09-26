@@ -56,7 +56,7 @@ namespace laba1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeID,Name,Birth,Role,Salary,PhotoID,DepartmentID")] Employee employee)
+        public async Task<IActionResult> Create([Bind("EmployeeID,Name,Birth,Role,Salary,DepartmentID,FilePath")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace laba1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,Name,Birth,Role,Salary,PhotoID,DepartmentID")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,Name,Birth,Role,Salary,DepartmentID,FilePath")] Employee employee)
         {
             if (id != employee.EmployeeID)
             {
