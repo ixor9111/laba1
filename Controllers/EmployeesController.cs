@@ -57,7 +57,7 @@ namespace laba1.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID");
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name");
             return View();
         }
 
@@ -114,7 +114,7 @@ namespace laba1.Controllers
                 return NotFound();
             }
 
-            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID", employee.DepartmentID);
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name", employee.DepartmentID);
             return View(employee);
         }
 
