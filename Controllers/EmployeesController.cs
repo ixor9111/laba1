@@ -57,7 +57,7 @@ namespace laba1.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name");
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID");
             return View();
         }
 
@@ -94,9 +94,9 @@ namespace laba1.Controllers
 
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("index");
+                return RedirectToAction("details", new { id = employee.EmployeeID });
             }
-            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name", model.DepartmentID);
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID", model.DepartmentID);
             return View();
         }
 
