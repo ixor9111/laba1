@@ -6,16 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using laba1.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace laba1.Controllers
 {
     public class EmployeesController : Controller
     {
+        [Obsolete]
+        private readonly IHostingEnvironment hostingEnvironment;
         private readonly laba1Context _context;
+        private readonly string photoPath = "C:/Users/maksm/OneDrive/Desktop/photoPath/";
+        private string lastPath = " ";
+        private readonly string defaultPath = "C:/Users/maksm/OneDrive/Desktop/photoPath/197297.jpg";
 
-        public EmployeesController(laba1Context context)
+        [Obsolete]
+        public EmployeesController(laba1Context context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Employees
@@ -56,16 +66,38 @@ namespace laba1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeID,Name,Birth,Role,Salary,DepartmentID,FilePath")] Employee employee)
+        [Obsolete]
+        public async Task<IActionResult> Create(EmployeeCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
+                string uniqueFileName = null;
+
+                if(model.File != null)
+                {
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.File.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    model.File.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+
+                Employee employee = new Employee
+                {
+                    Name = model.Name,
+                    Birth = model.Birth,
+                    Role = model.Role,
+                    Salary = model.Salary,
+                    DepartmentID = model.DepartmentID,
+                    FilePath = uniqueFileName,
+                    Department = model.Department
+                };
+
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("details", new { id = employee.EmployeeID });
             }
-            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID", employee.DepartmentID);
-            return View(employee);
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID", model.DepartmentID);
+            return View();
         }
 
         // GET: Employees/Edit/5
@@ -81,6 +113,7 @@ namespace laba1.Controllers
             {
                 return NotFound();
             }
+
             ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID", employee.DepartmentID);
             return View(employee);
         }
@@ -149,6 +182,23 @@ namespace laba1.Controllers
             _context.Employee.Remove(employee);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public void Import(IFormFile photoFile)
+        {
+            if (ModelState.IsValid)
+            {
+                if (photoFile != null)
+                {
+                    using (FileStream fstream = new FileStream(photoPath + photoFile.FileName, FileMode.Create))
+                    {
+                        photoFile.CopyTo(fstream);
+                    }
+                    FileInfo photo = new FileInfo(photoPath + photoFile.FileName);
+                    lastPath = photo.FullName;
+                }
+                else lastPath = defaultPath;
+            }
         }
 
         private bool EmployeeExists(int id)
