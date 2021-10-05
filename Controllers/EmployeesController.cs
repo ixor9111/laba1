@@ -80,6 +80,19 @@ namespace laba1.Controllers
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                     model.File.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
+                if(Int32.Parse(model.Salary) < 0)
+                {
+                    ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name", model.DepartmentID);
+                    return View();
+                }
+              
+
+                DateTime DateValidation = new DateTime(2005, 1, 1);
+                if(model.Birth.Ticks > DateValidation.Ticks)
+                {
+                    ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name", model.DepartmentID);
+                    return View();
+                }
 
                 Employee employee = new Employee
                 {
@@ -96,7 +109,7 @@ namespace laba1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("details", new { id = employee.EmployeeID });
             }
-            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID", model.DepartmentID);
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name", model.DepartmentID);
             return View();
         }
 

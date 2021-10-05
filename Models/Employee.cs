@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace laba1.Models
 {
@@ -15,6 +16,7 @@ namespace laba1.Models
         public string Role { get; set; }
         public string Salary { get; set; }
         public int DepartmentID  { get; set; }
+        [Display(Name = "Profile Photo")]
         public string FilePath { get; set; }
 
         public virtual Department Department { get; set; }
