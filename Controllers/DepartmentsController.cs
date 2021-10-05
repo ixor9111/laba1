@@ -21,7 +21,9 @@ namespace laba1.Controllers
         // GET: Departments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Department.ToListAsync());
+            var laba1Context = _context.Department.Include(e => e.Employees);
+            return View(await laba1Context.ToListAsync());
+
         }
 
         // GET: Departments/Details/5
@@ -45,6 +47,7 @@ namespace laba1.Controllers
         // GET: Departments/Create
         public IActionResult Create()
         {
+            ViewData["Head"] = new SelectList(_context.Employee, "EmployeeID", "Name");
             return View();
         }
 

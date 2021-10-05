@@ -24,8 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="HeadID" class="control-label"></label>
-                <input asp-for="HeadID" class="form-control" />
-                <span asp-validation-for="HeadID" class="text-danger"></span>
+                <select asp-for="HeadID" class="form-control" asp-items="ViewBag.Head"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

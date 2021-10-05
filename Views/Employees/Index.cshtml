@@ -25,9 +25,6 @@
                 @Html.DisplayNameFor(model => model.Salary)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FilePath)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Department)
             </th>
             <th></th>
@@ -49,10 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Salary)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FilePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department.DepartmentID)
+                @Html.DisplayFor(modelItem => item.Department.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a> |
