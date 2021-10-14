@@ -28,6 +28,7 @@ namespace laba1
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<laba1Context>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
