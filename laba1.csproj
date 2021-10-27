@@ -28,7 +28,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\" />
+    <Content Update="wwwroot\css\MainStyle\HeaderStyles.css">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>HeaderStyles.cs</LastGenOutput>
+    </Content>
+    <Content Update="wwwroot\css\MainStyle\HeaderStyles.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HeaderStyles.css</DependentUpon>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
 </Project>
