@@ -37,6 +37,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>HeaderStyles.css</DependentUpon>
     </Content>
+    <Content Update="wwwroot\css\MainStyle\BodyStyles.css">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BodyStyles.cs</LastGenOutput>
+    </Content>
+    <Content Update="wwwroot\css\MainStyle\BodyStyles.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BodyStyles.css</DependentUpon>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
