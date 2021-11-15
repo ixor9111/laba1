@@ -21,6 +21,7 @@ namespace laba1.Models
         [Display(Name = "Profile Photo")]
         public string FilePath { get; set; }
 
+        public string Address { get; set; }
         public virtual Department Department { get; set; }
     }
 }

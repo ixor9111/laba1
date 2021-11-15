@@ -14,6 +14,8 @@ namespace laba1.Models
         public string Role { get; set; }
         public string Salary { get; set; }
         public int DepartmentID { get; set; }
+
+        public string Address { get; set; }
         public IFormFile File { get; set; }
 
         public virtual Department Department { get; set; }
