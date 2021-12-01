@@ -11,7 +11,7 @@ namespace laba1.Models
         }
 
         public int EmployeeID { get; set; }
-        [Required(ErrorMessage = "”кажите им€")]
+        [Required(ErrorMessage = "Write name")]
         public string Name { get; set; }
         [Range(typeof(DateTime), "01.01.1960", "01.01.2010", ErrorMessage = "Date should be between {1} and {2} .")]
         public DateTime Birth { get; set; }
@@ -21,7 +21,7 @@ namespace laba1.Models
         public int DepartmentID  { get; set; }
         [Display(Name = "Profile Photo")]
         public string FilePath { get; set; }
-        [Required(ErrorMessage ="”кажите адресс")]
+        [Required(ErrorMessage ="Write address")]
         public string Address { get; set; }
         public virtual Department Department { get; set; }
     }
