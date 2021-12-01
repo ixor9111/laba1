@@ -101,6 +101,7 @@ namespace laba1.Controllers
                     Birth = model.Birth,
                     Role = model.Role,
                     Salary = model.Salary,
+                    Address = model.Address,
                     DepartmentID = model.DepartmentID,
                     FilePath = uniqueFileName,
                     Department = model.Department
@@ -137,7 +138,7 @@ namespace laba1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,Name,Birth,Role,Salary,DepartmentID,FilePath,Address")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,Name,Birth,Role,Salary,Address,DepartmentID,FilePath,Address")] Employee employee)
         {
             if (id != employee.EmployeeID)
             {
