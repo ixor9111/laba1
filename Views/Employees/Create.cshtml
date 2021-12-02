@@ -43,14 +43,13 @@
 
 
     <div class="ui-widget">
-        <label for="lol">Tags: </label>
+        <label for="lol">Tags: </label> 
         <input class="lol" autocomplete="off">
     </div>
     <div class="form-group row ui-widget">
         <label asp-for="DepartmentID" for="DepartmentID" class="control-label"></label>
-        <!--<select asp-for="DepartmentID" class="form-control" asp-items="ViewBag.DepartmentID"></select>-->
-        <input id="autocomplete" autocomplete="off" class="ui-autocomplete-input">
-        <!--<span asp-validation-for="DepartmentID" class="text-danger"></span>-->
+        <select asp-for="DepartmentID" class="form-control" asp-items="ViewBag.DepartmentID"></select>
+        <span asp-validation-for="DepartmentID" class="text-danger"></span>
     </div>
 
     <div class="form-group row">
