@@ -9,6 +9,7 @@ using laba1.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using System.ComponentModel.DataAnnotations;
 
 namespace laba1.Controllers
 {
@@ -95,6 +96,15 @@ namespace laba1.Controllers
                     return View();
                 }
                 */
+
+                foreach(Department elem in _context.Department)
+                {
+                    if (elem.Name == model.DepartmentName)
+                        model.DepartmentID = elem.DepartmentID;
+                }
+
+                if (model.DepartmentID == 0) return View();
+               
                 Employee employee = new Employee
                 {
                     Name = model.Name,
