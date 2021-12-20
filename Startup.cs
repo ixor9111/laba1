@@ -47,6 +47,9 @@ namespace laba1
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
+            app.UseAuthentication(); // підключення аутентифікації
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

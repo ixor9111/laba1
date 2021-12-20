@@ -53,18 +53,16 @@
         $(function () {
             var availableTags = @Json.Serialize(departments);
 
-            $("#lol").autocomplete({
+            $("#autocomplete").autocomplete({
                 source: availableTags
             });
         });
     </script>
 
-
-
-<div class="form-group row">
-    <label asp-for="DepartmentID" for="DepartmentID" class="control-label"></label>
-    <input asp-for="DepartmentName" id="lol" class="form-control">
-</div>
+    <div class="form-group row">
+        <label asp-for="DepartmentID" for="DepartmentID" class="control-label"></label>
+        <input asp-for="DepartmentName" id="autocomplete" class="form-control">
+    </div>
 
 <!--
 <div class="form-group row ui-widget">
