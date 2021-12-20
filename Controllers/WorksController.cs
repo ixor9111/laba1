@@ -47,7 +47,7 @@ namespace laba1.Controllers
         // GET: Works/Create
         public IActionResult Create()
         {
-            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID");
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name");
             return View();
         }
 
@@ -56,16 +56,41 @@ namespace laba1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WorkID,ClientName,ClientPhone,Payment,Deadline,Description,DepartmentID")] Work work)
+        public async Task<IActionResult> Create(WorkCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
+                foreach (Department elem in _context.Department)
+                {
+                    if (elem.Name == model.DepartmentName)
+                        model.DepartmentID = elem.DepartmentID;
+                }
+
+                if (model.DepartmentID == 0)
+                {
+                    ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name", model.DepartmentID);
+                    return View();
+                }
+
+                Work work = new Work
+                {
+                    ClientName = model.ClientName,
+                    ClientPhone = model.ClientPhone,
+                    Payment = model.Payment,
+                    Deadline = model.Deadline,
+                    Description = model.Description,
+                    DepartmentID = model.DepartmentID,
+                    Department = model.Department
+                };
+
+
+
                 _context.Add(work);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("details", new { id = work.WorkID });
             }
-            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID", work.DepartmentID);
-            return View(work);
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name", model.DepartmentID);
+            return View();
         }
 
         // GET: Works/Edit/5
@@ -81,7 +106,7 @@ namespace laba1.Controllers
             {
                 return NotFound();
             }
-            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID", work.DepartmentID);
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name", work.DepartmentID);
             return View(work);
         }
 
@@ -117,7 +142,7 @@ namespace laba1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID", work.DepartmentID);
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name", work.DepartmentID);
             return View(work);
         }
 
