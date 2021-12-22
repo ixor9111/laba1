@@ -1,8 +1,16 @@
-﻿@model laba1.Models.Department
+﻿@model laba1.Models.DepartmentCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
+
+    List<string> employees = new List<string>();
+    if (ViewBag.EmployeeID != null)
+        foreach (Employee item in ViewBag.EmployeeID.Items)
+        {
+            employees.Add(item.Name);
+        }
 }
+
 
 <h1>Create</h1>
 
@@ -22,10 +30,19 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <script>
+                $(function () {
+                    var availableTags = @Json.Serialize(employees);
+
+                    $("#autoHead").autocomplete({
+                        source: availableTags
+                    });
+                });
+            </script>
+
+            <div class="form-group row">
                 <label asp-for="HeadID" class="control-label"></label>
-                <input asp-for="HeadID" class="form-control" />
-                <span asp-validation-for="HeadID" class="text-danger"></span>
+                <input asp-for="HeadName" id="autoHead" class="form-control">
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

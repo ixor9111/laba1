@@ -16,11 +16,13 @@ namespace laba1.Controllers
         public DepartmentsController(laba1Context context)
         {
             _context = context;
+            ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "Name");
         }
 
         // GET: Departments
         public async Task<IActionResult> Index()
         {
+            ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "Name");
             return View(await _context.Department.ToListAsync());
         }
 
@@ -38,13 +40,14 @@ namespace laba1.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "Name");
             return View(department);
         }
 
         // GET: Departments/Create
         public IActionResult Create()
         {
+            ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "Name");
             return View();
         }
 
@@ -53,15 +56,35 @@ namespace laba1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DepartmentID,Name,Description,HeadID")] Department department)
+        public async Task<IActionResult> Create(DepartmentCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
+                foreach (Employee elem in _context.Employee)
+                {
+                    if (elem.Name == model.HeadName)
+                        model.HeadID = elem.EmployeeID;
+                }
+
+                if (model.HeadID == 0)
+                {
+                    ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "Name");
+                    return View();
+                }
+
+                Department department = new Department
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    HeadID = model.HeadID,
+                };
+
+
                 _context.Add(department);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            return View(model);
         }
 
         // GET: Departments/Edit/5
@@ -77,6 +100,7 @@ namespace laba1.Controllers
             {
                 return NotFound();
             }
+            ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "Name", department.HeadID);
             return View(department);
         }
 
@@ -129,7 +153,7 @@ namespace laba1.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "Name");
             return View(department);
         }
 

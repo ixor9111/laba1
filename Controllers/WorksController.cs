@@ -161,7 +161,7 @@ namespace laba1.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "Name");
             return View(work);
         }
 
