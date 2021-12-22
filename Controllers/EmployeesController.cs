@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.ComponentModel.DataAnnotations;
+using Google.Maps;
+using Google.Maps.StaticMaps;
 
 namespace laba1.Controllers
 {
@@ -32,6 +34,13 @@ namespace laba1.Controllers
         // GET: Employees
         public async Task<IActionResult> Index()
         {
+            GoogleSigned.AssignAllServices(new GoogleSigned("AIzaSyDyUgEyCzqA0Lh0bbxKEanbneUgU4RGmtM"));
+            var map = new StaticMapRequest();
+            map.Center = new Location("1600 Pennsylvania Ave NW, Washington, DC 20500");
+            map.Size = new Google.Maps.MapSize(400, 400);
+            map.Zoom = 14;
+            ViewData["StaticMapUri"] = map.ToUri();
+
             var laba1Context = _context.Employee.Include(e => e.Department);
             return View(await laba1Context.ToListAsync());
         }
@@ -76,9 +85,9 @@ namespace laba1.Controllers
 
                 if(model.File != null)
                 {
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    string uploadsFolder = System.IO.Path.Combine(hostingEnvironment.WebRootPath, "images");
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + model.File.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    string filePath = System.IO.Path.Combine(uploadsFolder, uniqueFileName);
                     model.File.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
 
