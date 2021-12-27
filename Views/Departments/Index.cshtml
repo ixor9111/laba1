@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    string headname = "";
 }
 
 <h1>Departments</h1>
@@ -26,6 +27,10 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
+    @foreach (var emp in ViewBag.EmployeeID.Items)
+            if (emp.EmployeeID == item.HeadID)
+                headname = emp.Name;
+
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -34,7 +39,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HeadID)
+                @Html.DisplayFor(modelItem => headname)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DepartmentID"><button class="indexRight">Edit</button></a> 

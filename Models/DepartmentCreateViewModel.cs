@@ -14,10 +14,14 @@ namespace laba1.Models
         }
 
         public int DepartmentID { get; set; }
+        [Required(ErrorMessage = "Write name")]
         public string Name { get; set; }
         public string Description { get; set; }
         public int HeadID { get; set; }
+
+        [Required(ErrorMessage = "Write HeadName")]
         public string HeadName { get; set; }
+
         [NotMapped]
         public virtual Employee Head { get; set; }
 

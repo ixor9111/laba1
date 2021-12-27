@@ -2,6 +2,10 @@
 
 @{
     ViewData["Title"] = "Details";
+    string headname = "";
+    foreach (var emp in ViewBag.EmployeeID.Items)
+        if (emp.EmployeeID == Html.ViewData.Model.HeadID)
+            headname = emp.Name;
 }
 
 <h1>Details</h1>
@@ -26,7 +30,7 @@
             @Html.DisplayNameFor(model => model.HeadID)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HeadID)
+            @Html.DisplayFor(model => headname)
         </dd>
     </dl>
 </div>
